@@ -118,7 +118,7 @@ class Program
         Console.WriteLine("Average: " + average);
     }
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Task 6 - Filtered Shopping List
@@ -158,6 +158,31 @@ class Program
         {
             Console.WriteLine(product);
         }
+    }
+}
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Task 7 - High Score Podium
+
+    static void Main(string[] args)
+    {
+        List<int> scores = new List<int>();
+
+        for (int i = 1; i <= 5; i++)
+        {
+            Console.Write("Enter score " + i + ": ");
+            int score = int.Parse(Console.ReadLine());
+
+            scores.Add(score);
+        }
+
+        scores.Sort();
+        scores.Reverse();
+
+        Console.WriteLine("1st place: " + scores[0]);
+        Console.WriteLine("2nd place: " + scores[1]);
+        Console.WriteLine("3rd place: " + scores[2]);
     }
 }
 
