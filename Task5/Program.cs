@@ -160,7 +160,7 @@ class Program
         }
     }
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Task 7 - High Score Podium
@@ -183,6 +183,39 @@ class Program
         Console.WriteLine("1st place: " + scores[0]);
         Console.WriteLine("2nd place: " + scores[1]);
         Console.WriteLine("3rd place: " + scores[2]);
+    }
+}
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Task 8 - Undo Last Action
+
+    static void Main(string[] args)
+    {
+        Stack<string> actions = new Stack<string>();
+
+        string action = "";
+
+        while (action != "stop")
+        {
+            Console.Write("Enter an action (or type 'stop'): ");
+            action = Console.ReadLine();
+
+            if (action != "stop")
+            {
+                actions.Push(action);
+            }
+        }
+
+        Console.WriteLine("Undo: " + actions.Pop());
+        Console.WriteLine("Undo: " + actions.Pop());
+
+        Console.WriteLine("Remaining actions:");
+
+        foreach (string item in actions)
+        {
+            Console.WriteLine(item);
+        }
     }
 }
 
