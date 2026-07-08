@@ -23,9 +23,9 @@ class Program
                 Console.WriteLine(grade);
             }
         }    }
-    */
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
+
     // Task 2 - Dynamic To-Do List
 
     static void Main(string[] args)
@@ -44,6 +44,29 @@ class Program
         {
             Console.WriteLine("- " + task);
         }
+    }
+}
+*/
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Task 3 - Browsing History Stack
+
+    static void Main(string[] args)
+    {
+        Stack<string> history = new Stack<string>();
+
+        for (int i = 1; i <= 3; i++)
+        {
+            Console.Write("Enter website " + i + ": ");
+            string website = Console.ReadLine();
+
+            history.Push(website);
+        }
+
+        history.Pop();
+
+        Console.WriteLine("Current page: " + history.Peek());
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
