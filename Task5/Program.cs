@@ -91,7 +91,7 @@ class Program
         Console.WriteLine("Served customer: " + servedCustomer);
     }
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Task 5 - Array Grade Range
@@ -118,6 +118,47 @@ class Program
         Console.WriteLine("Average: " + average);
     }
 }
-
+*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Task 6 - Filtered Shopping List
+
+    static void Main(string[] args)
+    {
+        List<string> shoppingList = new List<string>();
+
+        string item = "";
+
+        while (item != "done")
+        {
+            Console.Write("Enter an item (or type 'done' to finish): ");
+            item = Console.ReadLine();
+
+            if (item != "done")
+            {
+                shoppingList.Add(item);
+            }
+        }
+
+        Console.WriteLine("\nShopping List:");
+
+        foreach (string product in shoppingList)
+        {
+            Console.WriteLine(product);
+        }
+
+        Console.Write("\nEnter an item to remove: ");
+        string removeItem = Console.ReadLine();
+
+        shoppingList.Remove(removeItem);
+
+        Console.WriteLine("\nShopping List after removal:");
+
+        foreach (string product in shoppingList)
+        {
+            Console.WriteLine(product);
+        }
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
