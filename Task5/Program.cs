@@ -69,7 +69,7 @@ class Program
         Console.WriteLine("Current page: " + history.Peek());
     }
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Task 4 - Customer Service Queue
@@ -91,5 +91,33 @@ class Program
         Console.WriteLine("Served customer: " + servedCustomer);
     }
 }
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Task 5 - Array Grade Range
+
+    static void Main(string[] args)
+    {
+        int[] grades = new int[5];
+        int sum = 0;
+
+        for (int i = 0; i < grades.Length; i++)
+        {
+            Console.Write("Enter grade " + (i + 1) + ": ");
+            grades[i] = int.Parse(Console.ReadLine());
+
+            sum += grades[i];
+        }
+
+        Array.Sort(grades);
+
+        double average = sum / 5.0;
+
+        Console.WriteLine("Lowest grade: " + grades[0]);
+        Console.WriteLine("Highest grade: " + grades[grades.Length - 1]);
+        Console.WriteLine("Average: " + average);
+    }
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
