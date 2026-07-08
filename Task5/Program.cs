@@ -185,7 +185,7 @@ class Program
         Console.WriteLine("3rd place: " + scores[2]);
     }
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Task 8 - Undo Last Action
@@ -218,5 +218,56 @@ class Program
         }
     }
 }
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Task 9 - Grade Analyzer with Functions
+
+    static double CalculateAverage(List<int> grades)
+    {
+        int sum = 0;
+
+        foreach (int grade in grades)
+        {
+            sum += grade;
+        }
+
+        return sum / (double)grades.Count;
+    }
+
+    static int FindFirstFailing(List<int> grades)
+    {
+        return grades.Find(x => x < 60);
+    }
+
+    static void Main(string[] args)
+    {
+        List<int> grades = new List<int>();
+
+        Console.Write("How many grades do you want to enter? ");
+        int count = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= count; i++)
+        {
+            Console.Write("Enter grade " + i + ": ");
+            int grade = int.Parse(Console.ReadLine());
+
+            grades.Add(grade);
+        }
+
+        double average = CalculateAverage(grades);
+        int firstFailing = FindFirstFailing(grades);
+
+        Console.WriteLine("Average: " + average);
+
+        if (firstFailing == 0)
+        {
+            Console.WriteLine("No failing grade found.");
+        }
+        else
+        {
+            Console.WriteLine("First failing grade: " + firstFailing);
+        }
+    }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
