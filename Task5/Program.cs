@@ -46,7 +46,7 @@ class Program
         }
     }
 }
-*/
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -69,4 +69,27 @@ class Program
         Console.WriteLine("Current page: " + history.Peek());
     }
 }
+*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Task 4 - Customer Service Queue
+
+    static void Main(string[] args)
+    {
+        Queue<string> customers = new Queue<string>();
+
+        for (int i = 1; i <= 3; i++)
+        {
+            Console.Write("Enter customer " + i + ": ");
+            string customer = Console.ReadLine();
+
+            customers.Enqueue(customer);
+        }
+
+        string servedCustomer = customers.Dequeue();
+
+        Console.WriteLine("Served customer: " + servedCustomer);
+    }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
