@@ -309,6 +309,26 @@ class Program
     }
     static void SearchAccountsByCustomerName()
     {
-        // TODO
+        Console.Write("Enter customer name: ");
+        string searchName = Console.ReadLine();
+
+        bool found = false;
+
+        for (int i = 0; i < customerNames.Count; i++)
+        {
+            if (customerNames[i].Equals(searchName, StringComparison.OrdinalIgnoreCase))
+            {
+                Console.WriteLine("----------------------------");
+                Console.WriteLine($"Customer Name : {customerNames[i]}");
+                Console.WriteLine($"Account Number: {accountNumbers[i]}");
+                Console.WriteLine($"Balance       : {balances[i]:F2}");
+                found = true;
+            }
+        }
+
+        if (!found)
+        {
+            Console.WriteLine("Customer not found.");
+        }
     }
 }
