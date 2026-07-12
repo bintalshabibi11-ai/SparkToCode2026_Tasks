@@ -82,7 +82,46 @@ class Program
 
     static void AddAccount()
     {
-        // TODO
+        Console.Write("Enter customer name: ");
+        string customerName = Console.ReadLine();
+
+        Console.Write("Enter account number: ");
+        string accountNumber = Console.ReadLine();
+
+        if (accountNumbers.Contains(accountNumber))
+        {
+            Console.WriteLine("Error: This account number already exists.");
+            return;
+        }
+
+        Console.Write("Enter initial deposit amount: ");
+
+        double initialDeposit;
+
+        try
+        {
+            initialDeposit = double.Parse(Console.ReadLine());
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid input. Please enter a valid amount.");
+            return;
+        }
+
+        if (initialDeposit < 0)
+        {
+            Console.WriteLine("Error: Initial deposit cannot be negative.");
+            return;
+        }
+
+        customerNames.Add(customerName);
+        accountNumbers.Add(accountNumber);
+        balances.Add(initialDeposit);
+
+        Console.WriteLine("\nAccount created successfully!");
+        Console.WriteLine($"Customer Name: {customerName}");
+        Console.WriteLine($"Account Number: {accountNumber}");
+        Console.WriteLine($"Starting Balance: {initialDeposit:F2}");
     }
 
     static void DepositMoney()
