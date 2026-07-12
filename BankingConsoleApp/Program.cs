@@ -210,9 +210,24 @@ class Program
     
 
     static void ShowBalance()
-    {
-        // TODO
-    }
+    
+        {
+            Console.Write("Enter account number: ");
+            string accountNumber = Console.ReadLine();
+
+            int index = accountNumbers.IndexOf(accountNumber);
+
+            if (index == -1)
+            {
+                Console.WriteLine("Account not found.");
+                return;
+            }
+
+            Console.WriteLine($"Customer Name: {customerNames[index]}");
+            Console.WriteLine($"Account Number: {accountNumbers[index]}");
+            Console.WriteLine($"Current Balance: {balances[index]:F2}");
+        }
+    
 
     static void TransferAmount()
     {
