@@ -126,7 +126,40 @@ class Program
 
     static void DepositMoney()
     {
-        // TODO
+        Console.Write("Enter account number: ");
+        string accountNumber = Console.ReadLine();
+
+        int index = accountNumbers.IndexOf(accountNumber);
+
+        if (index == -1)
+        {
+            Console.WriteLine("Account not found.");
+            return;
+        }
+        Console.Write("Enter deposit amount: ");
+
+        double amount;
+
+        try
+        {
+            amount = double.Parse(Console.ReadLine());
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid amount.");
+            return;
+        }
+
+        if (amount <= 0)
+        {
+            Console.WriteLine("Deposit amount must be greater than zero.");
+            return;
+        }
+
+        balances[index] += amount;
+
+        Console.WriteLine($"Deposit successful.");
+        Console.WriteLine($"New Balance: {balances[index]:F2}");
     }
 
     static void WithdrawMoney()
