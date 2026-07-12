@@ -231,7 +231,64 @@ class Program
 
     static void TransferAmount()
     {
-        // TODO
+        Console.Write("Enter sender account number: ");
+        string senderAccount = Console.ReadLine();
+
+        int senderIndex = accountNumbers.IndexOf(senderAccount);
+
+        if (senderIndex == -1)
+        {
+            Console.WriteLine("Sender account not found.");
+            return;
+        }
+
+        Console.Write("Enter receiver account number: ");
+        string receiverAccount = Console.ReadLine();
+
+        int receiverIndex = accountNumbers.IndexOf(receiverAccount);
+
+        if (receiverIndex == -1)
+        {
+            Console.WriteLine("Receiver account not found.");
+            return;
+        }
+
+        if (senderIndex == receiverIndex)
+        {
+            Console.WriteLine("Cannot transfer to the same account.");
+            return;
+        }
+
+        Console.Write("Enter transfer amount: ");
+
+        double amount;
+
+        try
+        {
+            amount = double.Parse(Console.ReadLine());
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid amount.");
+            return;
+        }
+
+        if (amount <= 0)
+        {
+            Console.WriteLine("Transfer amount must be greater than zero.");
+            return;
+        }
+
+        if (amount > balances[senderIndex])
+        {
+            Console.WriteLine("Insufficient balance.");
+            return;
+        }
+
+        balances[senderIndex] -= amount;
+        balances[receiverIndex] += amount;
+
+        Console.WriteLine("Transfer completed successfully.");
     }
 
     static void ListAllAccounts()
