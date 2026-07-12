@@ -293,9 +293,20 @@ class Program
 
     static void ListAllAccounts()
     {
-        // TODO
-    }
+        if (customerNames.Count == 0)
+        {
+            Console.WriteLine("No accounts found.");
+            return;
+        }
 
+        for (int i = 0; i < customerNames.Count; i++)
+        {
+            Console.WriteLine("----------------------------");
+            Console.WriteLine($"Customer Name : {customerNames[i]}");
+            Console.WriteLine($"Account Number: {accountNumbers[i]}");
+            Console.WriteLine($"Balance       : {balances[i]:F2}");
+        }
+    }
     static void SearchAccountsByCustomerName()
     {
         // TODO
