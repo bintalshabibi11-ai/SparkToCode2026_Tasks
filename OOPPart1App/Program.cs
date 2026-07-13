@@ -245,18 +245,127 @@ static void Main(string[] args)
         switch (choice)
         {
             case 1:
+                // user choose one of the two bank accounts and view its details.
+
+                Console.Write("Choose account (1 or 2): ");
+                int accountChoice = int.Parse(Console.ReadLine());
+
+                if (accountChoice == 1)
+                {
+                    account1.CheckBalance();
+                }
+                else if (accountChoice == 2)
+                {
+                    account2.CheckBalance();
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 2:
+                // user choose a student and update their address.
+
+                Console.Write("Choose student (1 or 2): ");
+                int studentChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter the new address: ");
+                string newAddress = Console.ReadLine();
+
+                if (studentChoice == 1)
+                {
+                    student1.Address = newAddress;
+                    Console.WriteLine($"Address updated to: {student1.Address}");
+                }
+                else if (studentChoice == 2)
+                {
+                    student2.Address = newAddress;
+                    Console.WriteLine($"Address updated to: {student2.Address}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid student choice.");
+                }
+
                 break;
 
             case 3:
+                // user choose a bank account and deposit money into it.
+
+                Console.Write("Choose account (1 or 2): ");
+                int depositAccountChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter deposit amount: ");
+                double depositAmount = double.Parse(Console.ReadLine());
+
+                if (depositAccountChoice == 1)
+                {
+                    account1.Deposit(depositAmount);
+                    Console.WriteLine($"Account Holder: {account1.HolderName}");
+                    Console.WriteLine($"Updated Balance: {account1.Balance:F2}");
+                }
+                else if (depositAccountChoice == 2)
+                {
+                    account2.Deposit(depositAmount);
+                    Console.WriteLine($"Account Holder: {account2.HolderName}");
+                    Console.WriteLine($"Updated Balance: {account2.Balance:F2}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 4:
+                // user choose a bank account and withdraw money from it.
+
+                Console.Write("Choose account (1 or 2): ");
+                int withdrawalAccountChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter withdrawal amount: ");
+                double withdrawalAmount = double.Parse(Console.ReadLine());
+
+                if (withdrawalAccountChoice == 1)
+                {
+                    account1.Withdraw(withdrawalAmount);
+                    Console.WriteLine($"Updated Balance: {account1.Balance:F2}");
+                }
+                else if (withdrawalAccountChoice == 2)
+                {
+                    account2.Withdraw(withdrawalAmount);
+                    Console.WriteLine($"Updated Balance: {account2.Balance:F2}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 5:
+                // user choose a product and view its details and total inventory value.
+
+                Console.Write("Choose product (1 or 2): ");
+                int productChoice = int.Parse(Console.ReadLine());
+
+                if (productChoice == 1)
+                {
+                    double inventoryValue = product1.GetInventoryValue();
+                    Console.WriteLine($"Total Inventory Value: {inventoryValue:F3}");
+                }
+                else if (productChoice == 2)
+                {
+                    double inventoryValue = product2.GetInventoryValue();
+                    Console.WriteLine($"Total Inventory Value: {inventoryValue:F3}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid product choice.");
+                }
+
                 break;
 
             case 6:
