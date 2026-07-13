@@ -1,5 +1,6 @@
 ﻿namespace OOPPart1App;
 
+// Represents a bank account and handles deposits, withdrawals, balance checks, and account-related operations.
 class BankAccount
 {
     public int AccountNumber { get; set; }
@@ -65,6 +66,7 @@ class BankAccount
         Console.WriteLine("Email notification sent.");
     }
 }
+// Represents a student and manages student information, registration, student count, and security PIN.
 class Student
 {
     public int Grade { get; set; }
@@ -114,6 +116,7 @@ class Student
         Console.WriteLine("Registration email sent.");
     }
 }
+
 class Program
 {
     static void Main(string[] args)
