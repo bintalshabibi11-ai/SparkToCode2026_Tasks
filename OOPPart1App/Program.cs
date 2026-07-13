@@ -65,6 +65,55 @@ class BankAccount
         Console.WriteLine("Email notification sent.");
     }
 }
+class Student
+{
+    public int Grade { get; set; }
+    public string Name { get; set; }
+    public string Address { get; set; }
+
+    private string email;
+    int age;
+
+    private int securityPin;
+
+    public static int StudentCount;
+
+    public Student()
+    {
+        StudentCount++;
+    }
+
+    public void Register(string emailAddress)
+    {
+        email = emailAddress;
+        SendEmail();
+    }
+
+    public static int GetStudentCount()
+    {
+        return StudentCount;
+    }
+
+    public int SecurityPin
+    {
+        set
+        {
+            if (value >= 1000 && value <= 9999)
+            {
+                securityPin = value;
+            }
+            else
+            {
+                Console.WriteLine("PIN must be exactly 4 digits.");
+            }
+        }
+    }
+
+    private void SendEmail()
+    {
+        Console.WriteLine("Registration email sent.");
+    }
+}
 class Program
 {
     static void Main(string[] args)
