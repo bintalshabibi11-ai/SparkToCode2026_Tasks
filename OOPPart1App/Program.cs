@@ -462,19 +462,223 @@ static void Main(string[] args)
 
                 break;
 
-            case 9:
+            case 9: 
+                // Transfers money between the two bank accounts after checking that the source account has enough balance.
+
+                Console.Write("Choose source account (1 or 2): ");
+                int sourceAccountChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Choose destination account (1 or 2): ");
+                int destinationAccountChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter transfer amount: ");
+                double transferAmount = double.Parse(Console.ReadLine());
+
+                if (sourceAccountChoice == destinationAccountChoice)
+                {
+                    Console.WriteLine("Source and destination accounts must be different.");
+                }
+                else if (sourceAccountChoice == 1 && destinationAccountChoice == 2)
+                {
+                    if (account1.Balance >= transferAmount && transferAmount > 0)
+                    {
+                        account1.Withdraw(transferAmount);
+                        account2.Deposit(transferAmount);
+
+                        Console.WriteLine("Transfer completed successfully.");
+                        Console.WriteLine($"{account1.HolderName} Balance: {account1.Balance:F2}");
+                        Console.WriteLine($"{account2.HolderName} Balance: {account2.Balance:F2}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Transfer failed. Insufficient balance or invalid amount.");
+                    }
+                }
+                else if (sourceAccountChoice == 2 && destinationAccountChoice == 1)
+                {
+                    if (account2.Balance >= transferAmount && transferAmount > 0)
+                    {
+                        account2.Withdraw(transferAmount);
+                        account1.Deposit(transferAmount);
+
+                        Console.WriteLine("Transfer completed successfully.");
+                        Console.WriteLine($"{account2.HolderName} Balance: {account2.Balance:F2}");
+                        Console.WriteLine($"{account1.HolderName} Balance: {account1.Balance:F2}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Transfer failed. Insufficient balance or invalid amount.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 10:
+                // Updates a selected student's grade only if the entered value is a valid number from 0 to 100.
+
+                Console.Write("Choose student (1 or 2): ");
+                int gradeStudentChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter the new grade: ");
+                string gradeInput = Console.ReadLine();
+
+                if (!int.TryParse(gradeInput, out int newGrade))
+                {
+                    Console.WriteLine("Invalid grade. Please enter a number.");
+                }
+                else if (newGrade < 0 || newGrade > 100)
+                {
+                    Console.WriteLine("Grade must be between 0 and 100.");
+                }
+                else if (gradeStudentChoice == 1)
+                {
+                    student1.Grade = newGrade;
+                    Console.WriteLine($"Grade updated successfully to: {student1.Grade}");
+                }
+                else if (gradeStudentChoice == 2)
+                {
+                    student2.Grade = newGrade;
+                    Console.WriteLine($"Grade updated successfully to: {student2.Grade}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid student choice.");
+                }
+
                 break;
 
             case 11:
+                // Displays a selected student's report card and calculates whether the student passed or failed.
+
+                Console.Write("Choose student (1 or 2): ");
+                int reportStudentChoice = int.Parse(Console.ReadLine());
+
+                if (reportStudentChoice == 1)
+                {
+                    string result = student1.Grade >= 60 ? "Pass" : "Fail";
+
+                    Console.WriteLine("\n===== Student Report Card =====");
+                    Console.WriteLine($"Name: {student1.Name}");
+                    Console.WriteLine($"Address: {student1.Address}");
+                    Console.WriteLine($"Grade: {student1.Grade}");
+                    Console.WriteLine($"Result: {result}");
+                }
+                else if (reportStudentChoice == 2)
+                {
+                    string result = student2.Grade >= 60 ? "Pass" : "Fail";
+
+                    Console.WriteLine("\n===== Student Report Card =====");
+                    Console.WriteLine($"Name: {student2.Name}");
+                    Console.WriteLine($"Address: {student2.Address}");
+                    Console.WriteLine($"Grade: {student2.Grade}");
+                    Console.WriteLine($"Result: {result}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid student choice.");
+                }
+
                 break;
 
             case 12:
+                // Shows the health status of a selected bank account based on its current balance.
+
+                Console.Write("Choose account (1 or 2): ");
+                int healthAccountChoice = int.Parse(Console.ReadLine());
+
+                if (healthAccountChoice == 1)
+                {
+                    if (account1.Balance < 50)
+                    {
+                        Console.WriteLine("Account Status: Low Balance");
+                    }
+                    else if (account1.Balance <= 1000)
+                    {
+                        Console.WriteLine("Account Status: Healthy");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Account Status: Premium");
+                    }
+                }
+                else if (healthAccountChoice == 2)
+                {
+                    if (account2.Balance < 50)
+                    {
+                        Console.WriteLine("Account Status: Low Balance");
+                    }
+                    else if (account2.Balance <= 1000)
+                    {
+                        Console.WriteLine("Account Status: Healthy");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Account Status: Premium");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 13:
+                // Sells a selected product in bulk and calculates the total revenue if enough stock is available.
+
+                Console.Write("Choose product (1 or 2): ");
+                int saleProductChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter quantity to sell: ");
+                int saleQuantity = int.Parse(Console.ReadLine());
+
+                if (saleProductChoice == 1)
+                {
+                    if (saleQuantity <= 0)
+                    {
+                        Console.WriteLine("Sale quantity must be greater than zero.");
+                    }
+                    else if (product1.StockQuantity < saleQuantity)
+                    {
+                        int additionalUnitsNeeded = saleQuantity - product1.StockQuantity;
+                        Console.WriteLine($"Not enough stock. Additional units needed: {additionalUnitsNeeded}");
+                    }
+                    else
+                    {
+                        product1.Sell(saleQuantity);
+
+                        double totalRevenue = saleQuantity * product1.Price;
+                        Console.WriteLine($"Total Revenue: {totalRevenue:F3}");
+                    }
+                }
+                else if (saleProductChoice == 2)
+                {
+                    if (saleQuantity <= 0)
+                    {
+                        Console.WriteLine("Sale quantity must be greater than zero.");
+                    }
+                    else if (product2.StockQuantity < saleQuantity)
+                    {
+                        int additionalUnitsNeeded = saleQuantity - product2.StockQuantity;
+                        Console.WriteLine($"Not enough stock. Additional units needed: {additionalUnitsNeeded}");
+                    }
+                    else
+                    {
+                        product2.Sell(saleQuantity);
+
+                        double totalRevenue = saleQuantity * product2.Price;
+                        Console.WriteLine($"Total Revenue: {totalRevenue:F3}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid product choice.");
+                }
+
                 break;
 
             case 14:
