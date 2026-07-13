@@ -369,12 +369,97 @@ static void Main(string[] args)
                 break;
 
             case 6:
+                // user choose a student and register them using an email address.
+
+                Console.Write("Choose student (1 or 2): ");
+                int registerStudentChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter student email: ");
+                string studentEmail = Console.ReadLine();
+
+                if (registerStudentChoice == 1)
+                {
+                    student1.Register(studentEmail);
+                    Console.WriteLine("Student registered successfully.");
+                }
+                else if (registerStudentChoice == 2)
+                {
+                    student2.Register(studentEmail);
+                    Console.WriteLine("Student registered successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid student choice.");
+                }
+
                 break;
 
             case 7:
+                // Compares the balances of the two bank accounts and shows which account has more money.
+
+                if (account1.Balance > account2.Balance)
+                {
+                    Console.WriteLine($"{account1.HolderName}'s account has more money.");
+                }
+                else if (account2.Balance > account1.Balance)
+                {
+                    Console.WriteLine($"{account2.HolderName}'s account has more money.");
+                }
+                else
+                {
+                    Console.WriteLine("Both accounts have the same balance.");
+                }
+
                 break;
 
             case 8:
+                // Restocks a selected product and checks whether its stock level is low, moderate, or well stocked.
+
+                Console.Write("Choose product (1 or 2): ");
+                int restockProductChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter quantity to restock: ");
+                int restockQuantity = int.Parse(Console.ReadLine());
+
+                if (restockProductChoice == 1)
+                {
+                    product1.Restock(restockQuantity);
+
+                    if (product1.StockQuantity < 10)
+                    {
+                        Console.WriteLine("Stock Level: Low");
+                    }
+                    else if (product1.StockQuantity < 50)
+                    {
+                        Console.WriteLine("Stock Level: Moderate");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Stock Level: Well Stocked");
+                    }
+                }
+                else if (restockProductChoice == 2)
+                {
+                    product2.Restock(restockQuantity);
+
+                    if (product2.StockQuantity < 10)
+                    {
+                        Console.WriteLine("Stock Level: Low");
+                    }
+                    else if (product2.StockQuantity < 50)
+                    {
+                        Console.WriteLine("Stock Level: Moderate");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Stock Level: Well Stocked");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid product choice.");
+                }
+
                 break;
 
             case 9:
