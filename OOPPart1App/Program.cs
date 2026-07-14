@@ -176,8 +176,7 @@ class Program
 {
     static void Main(string[] args)
     {
-static void Main(string[] args)
-{
+        
     // Creates the required BankAccount, Student, and Product objects.
 
     BankAccount account1 = new BankAccount(1163, "Karim", 120);
@@ -682,21 +681,206 @@ static void Main(string[] args)
                 break;
 
             case 14:
+                // Checks scholarship eligibility using a selected student's grade and a selected account's balance.
+
+                Console.Write("Choose student (1 or 2): ");
+                int scholarshipStudentChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Choose account (1 or 2): ");
+                int scholarshipAccountChoice = int.Parse(Console.ReadLine());
+
+                int selectedGrade;
+                double selectedBalance;
+
+                if (scholarshipStudentChoice == 1)
+                {
+                    selectedGrade = student1.Grade;
+                }
+                else if (scholarshipStudentChoice == 2)
+                {
+                    selectedGrade = student2.Grade;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid student choice.");
+                    break;
+                }
+
+                if (scholarshipAccountChoice == 1)
+                {
+                    selectedBalance = account1.Balance;
+                }
+                else if (scholarshipAccountChoice == 2)
+                {
+                    selectedBalance = account2.Balance;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                    break;
+                }
+
+                if (selectedGrade >= 80 && selectedBalance >= 100)
+                {
+                    Console.WriteLine("Eligible");
+                }
+                else
+                {
+                    Console.WriteLine("Not Eligible");
+
+                    if (selectedGrade < 80)
+                    {
+                        Console.WriteLine("Reason: Student grade is below 80.");
+                    }
+
+                    if (selectedBalance < 100)
+                    {
+                        Console.WriteLine("Reason: Account balance is below 100.");
+                    }
+                }
+
                 break;
 
             case 15:
+                // Tops up a selected low-balance account to exactly 100 when its balance is below 50.
+
+                Console.Write("Choose account (1 or 2): ");
+                int topUpAccountChoice = int.Parse(Console.ReadLine());
+
+                if (topUpAccountChoice == 1)
+                {
+                    double balanceBefore = account1.Balance;
+
+                    if (balanceBefore < 50)
+                    {
+                        double topUpAmount = 100 - balanceBefore;
+                        account1.Deposit(topUpAmount);
+
+                        Console.WriteLine($"Balance Before: {balanceBefore:F2}");
+                        Console.WriteLine($"Top-Up Amount: {topUpAmount:F2}");
+                        Console.WriteLine($"Balance After: {account1.Balance:F2}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No top-up is needed.");
+                    }
+                }
+                else if (topUpAccountChoice == 2)
+                {
+                    double balanceBefore = account2.Balance;
+
+                    if (balanceBefore < 50)
+                    {
+                        double topUpAmount = 100 - balanceBefore;
+                        account2.Deposit(topUpAmount);
+
+                        Console.WriteLine($"Balance Before: {balanceBefore:F2}");
+                        Console.WriteLine($"Top-Up Amount: {topUpAmount:F2}");
+                        Console.WriteLine($"Balance After: {account2.Balance:F2}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("No top-up is needed.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 16:
+                // Creates a new bank account using the parameterized constructor and displays its details.
+
+                Console.Write("Enter account number: ");
+                int newAccountNumber = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter holder name: ");
+                string newHolderName = Console.ReadLine();
+
+                Console.Write("Enter starting balance: ");
+                double newStartingBalance = double.Parse(Console.ReadLine());
+
+                BankAccount newAccount = new BankAccount(
+                    newAccountNumber,
+                    newHolderName,
+                    newStartingBalance
+                );
+
+                Console.WriteLine("Account created successfully.");
+                newAccount.CheckBalance();
+
                 break;
 
             case 17:
+                // Displays the total number of Student objects created using a static method.
+
+                int totalStudents = Student.GetStudentCount();
+
+                Console.WriteLine($"Total Students Created: {totalStudents}");
+
                 break;
 
             case 18:
+                // Checks whether the selected bank account is overdrawn using a read-only property.
+
+                Console.Write("Choose account (1 or 2): ");
+                int overdrawnAccountChoice = int.Parse(Console.ReadLine());
+
+                if (overdrawnAccountChoice == 1)
+                {
+                    if (account1.IsOverdrawn)
+                    {
+                        Console.WriteLine("The account is overdrawn.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("The account is not overdrawn.");
+                    }
+                }
+                else if (overdrawnAccountChoice == 2)
+                {
+                    if (account2.IsOverdrawn)
+                    {
+                        Console.WriteLine("The account is overdrawn.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("The account is not overdrawn.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid account choice.");
+                }
+
                 break;
 
             case 19:
+                // Sets a 4-digit security PIN for the selected student using a write-only property.
+
+                Console.Write("Choose student (1 or 2): ");
+                int pinStudentChoice = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter a 4-digit PIN: ");
+                int studentPin = int.Parse(Console.ReadLine());
+
+                if (pinStudentChoice == 1)
+                {
+                    student1.SecurityPin = studentPin;
+                    Console.WriteLine("Security PIN was set successfully.");
+                }
+                else if (pinStudentChoice == 2)
+                {
+                    student2.SecurityPin = studentPin;
+                    Console.WriteLine("Security PIN was set successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid student choice.");
+                }
+
                 break;
 
             case 20:
@@ -711,4 +895,3 @@ static void Main(string[] args)
     }
 }
     }
-}
