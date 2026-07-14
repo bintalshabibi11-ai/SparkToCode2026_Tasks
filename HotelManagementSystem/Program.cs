@@ -35,10 +35,46 @@
         }
     }
 
-class Guest
-{
-    
-}
+    class Guest
+    { 
+        // Represents a hotel guest and stores booking details and total stay cost.
+
+        public string GuestId { get; set; } = "";
+        public string GuestName { get; set; } = "";
+        public string RoomNumber { get; set; } = "Not Assigned";
+        public string CheckInDate { get; set; } = "";
+        public int TotalNights { get; set; }
+        public double PricePerNight { get; set; }
+
+        public Guest(
+            string guestId,
+            string guestName,
+            string roomNumber,
+            string checkInDate,
+            int totalNights
+        )
+        {
+            GuestId = guestId;
+            GuestName = guestName;
+            RoomNumber = roomNumber;
+            CheckInDate = checkInDate;
+            TotalNights = totalNights;
+        }
+
+        public void DisplayGuest()
+        {
+            Console.WriteLine($"Guest ID: {GuestId}");
+            Console.WriteLine($"Guest Name: {GuestName}");
+            Console.WriteLine($"Room Number: {RoomNumber}");
+            Console.WriteLine($"Check-In Date: {CheckInDate}");
+            Console.WriteLine($"Total Nights: {TotalNights}");
+        }
+
+        public double CalculateTotalCost()
+        {
+            return PricePerNight * TotalNights;
+        }
+    }
 
 class Program
 {
