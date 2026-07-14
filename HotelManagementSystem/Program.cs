@@ -646,21 +646,257 @@
 
                         break;
                     
-                    case 11:
+                   case 11:
+                        // Checks out a guest, frees the room, removes the guest, and displays the final bill.
+
+                        Console.Write("Enter guest ID to check out: ");
+                        string checkoutGuestId = Console.ReadLine();
+
+                        Guest checkoutGuest = guests.FirstOrDefault(
+                            g => g.GuestId == checkoutGuestId
+                        );
+
+                        if (checkoutGuest == null)
+                        {
+                            Console.WriteLine("Guest not found.");
+                            break;
+                        }
+                        if (checkoutGuest.RoomNumber == "Not Assigned")
+                        {
+                            Console.WriteLine("This guest has no active booking.");
+                            break;
+                        }
+                        Room? checkoutRoom = rooms.FirstOrDefault(r => r.RoomNumber.ToString() == checkoutGuest.RoomNumber);
+
+
+
+
+
+                        if (checkoutRoom == null) 
+                        { 
+                            Console.WriteLine("The guest's room could not be found."); 
+                            break; 
+                        }
+                        
+                        Console.WriteLine("\n--- Final Bill ---"); 
+                        Console.WriteLine($"Guest Name: {checkoutGuest.GuestName}"); 
+                        Console.WriteLine($"Room Number: {checkoutRoom.RoomNumber}"); 
+                        Console.WriteLine($"Room Type: {checkoutRoom.RoomType}"); 
+                        Console.WriteLine($"Check-In Date: {checkoutGuest.CheckInDate}"); 
+                        Console.WriteLine($"Total Nights: {checkoutGuest.TotalNights}"); 
+                        Console.WriteLine($"Price Per Night: OMR {checkoutRoom.PricePerNight:F2}"); 
+                        Console.WriteLine($"Total Cost: OMR {checkoutGuest.CalculateTotalCost():F2}");
+                        Console.Write("Confirm checkout (Y/N): "); 
+                        string checkoutConfirmation = Console.ReadLine();
+                        if (checkoutConfirmation.ToUpper() != "Y") 
+                        {
+                            Console.WriteLine("Checkout cancelled. No changes were made.");
+       
+                            break; 
+                        }
+                        
+                        checkoutRoom.IsAvailable = true; 
+                        guests.Remove(checkoutGuest);
+
+    
+                        bool roomIsAvailable = rooms.Any(r => r.RoomNumber == checkoutRoom.RoomNumber && r.IsAvailable);
+
+   
+                        Console.WriteLine("\nCheckout completed successfully.");
+                        Console.WriteLine($"Guest: {checkoutGuest.GuestName}"); 
+                        Console.WriteLine($"Room {checkoutRoom.RoomNumber} is now available: {roomIsAvailable}"); 
+                        Console.WriteLine($"Updated Guest Count: {guests.Count()}"); 
+                        Console.WriteLine($"Updated Room Count: {rooms.Count()}");
+                        
                         break;
 
                     case 12:
+                        // Removes unavailable rooms only when no guest currently holds that room number.
+
+                        var removableRooms = rooms
+                            .Where(r =>
+                                !r.IsAvailable &&
+                                !guests.Any(g => g.RoomNumber == r.RoomNumber.ToString())
+                            )
+                            .OrderBy(r => r.RoomNumber)
+                            .ToList();
+
+                        if (!removableRooms.Any())
+                        {
+                            Console.WriteLine(
+                                "All unavailable rooms are currently occupied. " +
+                                "No rooms can be decommissioned."
+                            );
+                            break;
+                        }
+
+                        Console.WriteLine("\n--- Rooms Safe to Remove ---");
+
+                        foreach (Room room in removableRooms)
+                        {
+                            Console.WriteLine(
+                                $"Room {room.RoomNumber} | " +
+                                $"{room.RoomType} | " +
+                                $"OMR {room.PricePerNight:F2}"
+                            );
+                        }
+
+                        Console.WriteLine($"\nRemovable Rooms: {removableRooms.Count()}");
+                        Console.Write("Confirm removal (Y/N): ");
+
+                        string removalConfirmation = Console.ReadLine();
+
+                        if (removalConfirmation == null ||
+                            removalConfirmation.ToUpper() != "Y")
+                        {
+                            Console.WriteLine("Removal cancelled. No rooms were removed.");
+                            break;
+                        }
+
+                        int removedRoomsCount = rooms.RemoveAll(r =>
+                            !r.IsAvailable &&
+                            !guests.Any(g => g.RoomNumber == r.RoomNumber.ToString())
+                        );
+
+                        Console.WriteLine(
+                            $"\n{removedRoomsCount} room(s) removed successfully."
+                        );
+
+                        Console.WriteLine($"Updated Total Rooms: {rooms.Count()}");
+
+                        var remainingRooms = rooms
+                            .OrderBy(r => r.RoomNumber)
+                            .Select(r => $"Room {r.RoomNumber} | {r.RoomType}")
+                            .ToList();
+
+                        Console.WriteLine("\n--- Remaining Rooms ---");
+
+                        foreach (string roomDetails in remainingRooms)
+                        {
+                            Console.WriteLine(roomDetails);
+                        }
+
                         break;
 
                     case 13:
+                        // Extends an active guest booking and recalculates the total cost.
+
+                        Console.Write("Enter guest ID: ");
+                        string extendGuestId = Console.ReadLine();
+
+                        Guest guestToExtend = guests.FirstOrDefault(g => g.GuestId == extendGuestId);
+
+                        if (guestToExtend == null)
+                        {
+                            Console.WriteLine("Guest not found.");
+                            break;
+                        }
+
+                        if (guestToExtend.RoomNumber == "Not Assigned")
+                        {
+                            Console.WriteLine("This guest has no active booking to extend.");
+                            break;
+                        }
+
+                        Console.Write("Enter number of additional nights: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int additionalNights) ||
+                            additionalNights <= 0)
+                        {
+                            Console.WriteLine("Additional nights must be a positive integer.");
+                            break;
+                        }
+
+                        guestToExtend.TotalNights += additionalNights;
+
+                        Console.WriteLine("\nGuest stay extended successfully.");
+                        Console.WriteLine($"Guest Name: {guestToExtend.GuestName}");
+                        Console.WriteLine($"Room Number: {guestToExtend.RoomNumber}");
+                        Console.WriteLine($"Additional Nights: {additionalNights}");
+                        Console.WriteLine($"Updated Total Nights: {guestToExtend.TotalNights}");
+                        Console.WriteLine(
+                            $"New Total Cost: OMR {guestToExtend.CalculateTotalCost():F2}"
+                        );
+
                         break;
 
                     case 14:
-                        break;
+                        // Finds and displays the active booking with the highest total revenue.
 
+                        var activeBookings = guests
+                            .Where(g => g.RoomNumber != "Not Assigned")
+                            .ToList();
+
+                        if (!activeBookings.Any())
+                        {
+                            Console.WriteLine("No active bookings recorded.");
+                            break;
+                        }
+
+                        var highestRevenueBooking = activeBookings
+                            .Select(g => new
+                            {
+                                GuestName = g.GuestName,
+                                RoomNumber = g.RoomNumber,
+                                TotalCost = g.CalculateTotalCost()
+                            })
+                            .OrderByDescending(g => g.TotalCost)
+                            .Take(1)
+                            .ToList();
+
+                        Console.WriteLine("\n--- Highest Revenue Booking ---");
+
+                        foreach (var booking in highestRevenueBooking)
+                        {
+                            Console.WriteLine($"Guest Name: {booking.GuestName}");
+                            Console.WriteLine($"Room Number: {booking.RoomNumber}");
+                            Console.WriteLine($"Total Cost: OMR {booking.TotalCost:F2}");
+                        }
+
+                        break;
+                    
                     case 15:
-                        break;
+                        // Displays registered guests three at a time using LINQ Skip and Take.
 
+                        if (guests.Count() == 0)
+                        {
+                            Console.WriteLine("No guests have been registered yet.");
+                            break;
+                        }
+
+                        int pageSize = 3;
+                        int totalGuestPages = (int)Math.Ceiling(
+                            guests.Count() / (double)pageSize
+                        );
+
+                        Console.Write($"Enter page number (1 to {totalGuestPages}): ");
+
+                        if (!int.TryParse(Console.ReadLine(), out int pageNumber) ||
+                            pageNumber < 1 ||
+                            pageNumber > totalGuestPages)
+                        {
+                            Console.WriteLine("That page does not exist.");
+                            break;
+                        }
+
+                        var guestsOnPage = guests
+                            .OrderBy(g => g.GuestName)
+                            .Skip((pageNumber - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+
+                        Console.WriteLine(
+                            $"\n--- Guest Page {pageNumber} of {totalGuestPages} ---"
+                        );
+
+                        foreach (Guest guest in guestsOnPage)
+                        {
+                            Console.WriteLine("\n----------------------------");
+                            guest.DisplayGuest();
+                        }
+
+                        break;
+                    
                     case 0:
                         exitApp = true;
                         Console.WriteLine("Thank you. Goodbye!");
