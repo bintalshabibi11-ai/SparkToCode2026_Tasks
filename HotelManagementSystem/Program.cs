@@ -76,10 +76,118 @@
         }
     }
 
-class Program
-{
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Hello, World!");
+        static void Main(string[] args)
+        {
+            // Creates the room and guest lists and adds the six starting rooms required by the task.
+
+            List<Room> rooms = new List<Room>();
+            List<Guest> guests = new List<Guest>();
+
+            rooms.Add(new Room(101, "Single", 25.00, true));
+            rooms.Add(new Room(102, "Single", 30.00, true));
+            rooms.Add(new Room(201, "Double", 45.00, true));
+            rooms.Add(new Room(202, "Double", 50.00, true));
+            rooms.Add(new Room(301, "Suite", 80.00, true));
+            rooms.Add(new Room(302, "Suite", 95.00, true));
+
+            // Displays the main menu repeatedly until the user chooses Exit.
+
+            bool exitApp = false;
+
+            while (!exitApp)
+            {
+                Console.WriteLine("\n================================================");
+                Console.WriteLine("GRAND VISTA HOTEL - MANAGEMENT SYSTEM");
+                Console.WriteLine("================================================");
+                Console.WriteLine("1. Add New Room");
+                Console.WriteLine("2. Register New Guest");
+                Console.WriteLine("3. Book a Room for a Guest");
+                Console.WriteLine("4. View All Rooms");
+                Console.WriteLine("5. View All Guests");
+                Console.WriteLine("6. Search and Filter Rooms");
+                Console.WriteLine("7. Guest and Booking Statistics");
+                Console.WriteLine("8. Update Room Price");
+                Console.WriteLine("9. Guest Lookup by Name");
+                Console.WriteLine("10. Room Type Breakdown Report");
+                Console.WriteLine("11. Check Out a Guest");
+                Console.WriteLine("12. Remove Unavailable Rooms");
+                Console.WriteLine("13. Extend Guest Stay");
+                Console.WriteLine("14. Highest Revenue Booking");
+                Console.WriteLine("15. Guest Pagination Viewer");
+                Console.WriteLine("0. Exit");
+                Console.Write("Enter your choice: ");
+
+
+                if (!int.TryParse(Console.ReadLine(), out int choice))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        break;
+
+                    case 2:
+                        break;
+
+                    case 3:
+                        break;
+
+                    case 4:
+                        break;
+
+                    case 5:
+                        break;
+
+                    case 6:
+                        break;
+
+                    case 7:
+                        break;
+
+                    case 8:
+                        break;
+
+                    case 9:
+                        break;
+
+                    case 10:
+                        break;
+
+                    case 11:
+                        break;
+
+                    case 12:
+                        break;
+
+                    case 13:
+                        break;
+
+                    case 14:
+                        break;
+
+                    case 15:
+                        break;
+
+                    case 0:
+                        exitApp = true;
+                        Console.WriteLine("Thank you. Goodbye!");
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid option. Please choose from 0 to 15.");
+                        break;
+                }
+            }
+        }
     }
-}
+   
+
+   
+
+        
+ 
