@@ -1,0 +1,155 @@
+COLLEGE MANAGEMENT SYSTEM
+RELATIONAL MAPPING
+
+
+HOSTEL
+(
+    Hostel_ID PK,
+    Hostel_Name,
+    No_Of_Seats
+)
+
+
+DEPARTMENT
+(
+    Department_ID PK,
+    Department_Name
+)
+
+
+FACULTY
+(
+    Faculty_ID PK,
+    Faculty_Name,
+    Faculty_Department,
+    Salary
+)
+
+
+FACULTY_MOBILE
+(
+    Faculty_ID PK, FK,
+    Mobile_No PK
+)
+
+Composite PK: Faculty_ID + Mobile_No
+
+FK: FACULTY_MOBILE.Faculty_ID
+    → FACULTY.Faculty_ID
+
+
+STUDENT
+(
+    Student_ID PK,
+    First_Name,
+    Last_Name,
+    DOB,
+    City,
+    State,
+    Pin_Code,
+    Hostel_ID FK,
+    Faculty_ID FK,
+    Department_ID FK
+)
+
+FK: STUDENT.Hostel_ID
+    → HOSTEL.Hostel_ID
+
+FK: STUDENT.Faculty_ID
+    → FACULTY.Faculty_ID
+
+FK: STUDENT.Department_ID
+    → DEPARTMENT.Department_ID
+
+
+STUDENT_PHONE
+(
+    Student_ID PK, FK,
+    Phone_No PK
+)
+
+Composite PK: Student_ID + Phone_No
+
+FK: STUDENT_PHONE.Student_ID
+    → STUDENT.Student_ID
+
+
+COURSE
+(
+    Course_ID PK,
+    Course_Name,
+    Duration,
+    Department_ID FK
+)
+
+FK: COURSE.Department_ID
+    → DEPARTMENT.Department_ID
+
+
+SUBJECT
+(
+    Subject_ID PK,
+    Subject_Name,
+    Faculty_ID FK
+)
+
+FK: SUBJECT.Faculty_ID
+    → FACULTY.Faculty_ID
+
+
+EXAM
+(
+    Exam_Code PK,
+    Exam_Date,
+    Exam_Time,
+    Room,
+    Department_ID FK
+)
+
+FK: EXAM.Department_ID
+    → DEPARTMENT.Department_ID
+
+
+ENROLS
+(
+    Student_ID PK, FK,
+    Course_ID PK, FK
+)
+
+Composite PK: Student_ID + Course_ID
+
+FK: ENROLS.Student_ID
+    → STUDENT.Student_ID
+
+FK: ENROLS.Course_ID
+    → COURSE.Course_ID
+
+
+TAKES
+(
+    Student_ID PK, FK,
+    Subject_ID PK, FK
+)
+
+Composite PK: Student_ID + Subject_ID
+
+FK: TAKES.Student_ID
+    → STUDENT.Student_ID
+
+FK: TAKES.Subject_ID
+    → SUBJECT.Subject_ID
+
+
+SIT_IN
+(
+    Student_ID PK, FK,
+    Exam_Code PK, FK
+)
+
+Composite PK: Student_ID + Exam_Code
+
+FK: SIT_IN.Student_ID
+    → STUDENT.Student_ID
+
+FK: SIT_IN.Exam_Code
+    → EXAM.Exam_Code
