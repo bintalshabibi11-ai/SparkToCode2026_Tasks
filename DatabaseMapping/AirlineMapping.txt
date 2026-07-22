@@ -1,0 +1,134 @@
+AIRLINE INFORMATION SYSTEM
+RELATIONAL MAPPING
+
+
+AIRPORT
+(
+    Airport_Code PK,
+    Airport_Name,
+    City,
+    State
+)
+
+
+AIRPLANE_TYPE
+(
+    Type_Name PK,
+    Company,
+    Max_Seats
+)
+
+
+CAN_LAND
+(
+    Airport_Code PK, FK,
+    Type_Name PK, FK
+)
+
+Composite PK: Airport_Code + Type_Name
+
+FK: CAN_LAND.Airport_Code
+    → AIRPORT.Airport_Code
+
+FK: CAN_LAND.Type_Name
+    → AIRPLANE_TYPE.Type_Name
+
+
+AIRPLANE
+(
+    Airplane_ID PK,
+    Total_No_Of_Seats,
+    Type_Name FK
+)
+
+FK: AIRPLANE.Type_Name
+    → AIRPLANE_TYPE.Type_Name
+
+
+FLIGHT
+(
+    Flight_Number PK,
+    Airline,
+    Weekdays
+)
+
+
+FLIGHT_LEG
+(
+    Flight_Number PK, FK,
+    Leg_No PK,
+    Departure_Airport_Code FK,
+    Scheduled_Departure_Time,
+    Arrival_Airport_Code FK,
+    Scheduled_Arrival_Time
+)
+
+Composite PK: Flight_Number + Leg_No
+
+FK: FLIGHT_LEG.Flight_Number
+    → FLIGHT.Flight_Number
+
+FK: FLIGHT_LEG.Departure_Airport_Code
+    → AIRPORT.Airport_Code
+
+FK: FLIGHT_LEG.Arrival_Airport_Code
+    → AIRPORT.Airport_Code
+
+
+LEG_INSTANCE
+(
+    Flight_Number PK,
+    Leg_No PK,
+    Instance_Date PK,
+    No_Of_Available_Seats,
+    Airplane_ID FK,
+    Departure_Airport_Code FK,
+    Departure_Time,
+    Arrival_Airport_Code FK,
+    Arrival_Time
+)
+
+Composite PK: Flight_Number + Leg_No + Instance_Date
+
+FK: LEG_INSTANCE.(Flight_Number, Leg_No)
+    → FLIGHT_LEG.(Flight_Number, Leg_No)
+
+FK: LEG_INSTANCE.Airplane_ID
+    → AIRPLANE.Airplane_ID
+
+FK: LEG_INSTANCE.Departure_Airport_Code
+    → AIRPORT.Airport_Code
+
+FK: LEG_INSTANCE.Arrival_Airport_Code
+    → AIRPORT.Airport_Code
+
+
+FARE
+(
+    Flight_Number PK, FK,
+    Fare_Code PK,
+    Amount,
+    Restrictions
+)
+
+Composite PK: Flight_Number + Fare_Code
+
+FK: FARE.Flight_Number
+    → FLIGHT.Flight_Number
+
+
+SEAT_RESERVATION
+(
+    Flight_Number PK,
+    Leg_No PK,
+    Instance_Date PK,
+    Seat_No PK,
+    Customer_Name,
+    Customer_Phone
+)
+
+Composite PK:
+Flight_Number + Leg_No + Instance_Date + Seat_No
+
+FK: SEAT_RESERVATION.(Flight_Number, Leg_No, Instance_Date)
+    → LEG_INSTANCE.(Flight_Number, Leg_No, Instance_Date)
