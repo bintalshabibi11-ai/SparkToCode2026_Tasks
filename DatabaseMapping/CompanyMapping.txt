@@ -1,0 +1,92 @@
+COMPANY DATABASE
+RELATIONAL MAPPING
+
+
+EMPLOYEE
+(
+    SSN PK,
+    First_Name,
+    Middle_Initial,
+    Last_Name,
+    Birth_Date,
+    Address,
+    Sex,
+    Salary,
+    Department_Number FK,
+    Supervisor_SSN FK
+)
+
+FK: EMPLOYEE.Department_Number
+    → DEPARTMENT.Department_Number
+
+FK: EMPLOYEE.Supervisor_SSN
+    → EMPLOYEE.SSN
+
+
+DEPARTMENT
+(
+    Department_Number PK,
+    Department_Name,
+    Manager_SSN FK,
+    Manager_Start_Date
+)
+
+FK: DEPARTMENT.Manager_SSN
+    → EMPLOYEE.SSN
+
+UNIQUE: Manager_SSN
+
+
+DEPARTMENT_LOCATION
+(
+    Department_Number PK, FK,
+    Location PK
+)
+
+Composite PK: Department_Number + Location
+
+FK: DEPARTMENT_LOCATION.Department_Number
+    → DEPARTMENT.Department_Number
+
+
+PROJECT
+(
+    Project_Number PK,
+    Project_Name,
+    Project_Location,
+    Department_Number FK
+)
+
+FK: PROJECT.Department_Number
+    → DEPARTMENT.Department_Number
+
+
+WORKS_ON
+(
+    Employee_SSN PK, FK,
+    Project_Number PK, FK,
+    Hours
+)
+
+Composite PK: Employee_SSN + Project_Number
+
+FK: WORKS_ON.Employee_SSN
+    → EMPLOYEE.SSN
+
+FK: WORKS_ON.Project_Number
+    → PROJECT.Project_Number
+
+
+DEPENDENT
+(
+    Employee_SSN PK, FK,
+    Dependent_Name PK,
+    Sex,
+    Birth_Date,
+    Relationship
+)
+
+Composite PK: Employee_SSN + Dependent_Name
+
+FK: DEPENDENT.Employee_SSN
+    → EMPLOYEE.SSN
